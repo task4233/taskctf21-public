@@ -81,7 +81,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		}).then((res) => {
 			return res.json();
 		}).then((out) => {
-			for (let idx=0; idx<out.length; i++) {
+			for (let idx=0; idx<out.length; idx++) {
 				ranking.innerHTML += 
 				"<tr><td>" + out[idx].hash + "</td>" +
 				"<td>" + out[idx].length + "</td></tr>";
@@ -178,12 +178,7 @@ func Judge(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	val := r.Header.Get("X-Forwarded-For")
-	if val == "" {
-		val = time.Now().String()
-	}
-
-	h := fmt.Sprintf("%x", sha256.Sum256([]byte(val))) // 別の8種の方が良さそう
+	h := fmt.Sprintf("%x", sha256.Sum256([]byte(code))) // 別の8種の方が良さそう
 	mu.Lock()
 	if lastScore, ok := ranking[h]; !ok {
 		ranking[h] = len(code)
